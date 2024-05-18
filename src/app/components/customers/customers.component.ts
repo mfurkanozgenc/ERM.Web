@@ -49,7 +49,7 @@ export class CustomersComponent implements OnInit {
   }
 
   delete(customer : CustomerModel){
-    this.swal.callSwal('Müşteri Silinecek ?',`${customer.name} isimli müşteri silinecektir.Onalıyor Musunuz ?`,() =>{
+    this.swal.callSwal('Müşteri Silinecek ?',`${customer.name} isimli müşteri silinecektir.Onaylıyor Musunuz ?`,() =>{
       this.http.post<string>("Customer/DeleteById",{id : customer.id},(res)=>{
         this.swal.callToast(res);
         this.getAllCustomer();
