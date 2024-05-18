@@ -16,6 +16,7 @@ import { SwalService } from '../../services/swal.service';
 export class CustomersComponent implements OnInit {
 
   @ViewChild('createModalCloseBtn') createModalCloseBtn : ElementRef<HTMLButtonElement> | undefined;
+  @ViewChild('updateModalCloseBtn') updateModalCloseBtn : ElementRef<HTMLButtonElement> | undefined;
   customers : CustomerModel[] = [];
   createModel : CustomerModel = new CustomerModel();
   updateModel : CustomerModel = new CustomerModel();
@@ -29,6 +30,10 @@ export class CustomersComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getAllCustomer();
+  }
+
+  openEditModal(customer : CustomerModel){
+     this.updateModel = {...customer};
   }
 
   getAllCustomer(){
@@ -55,5 +60,16 @@ export class CustomersComponent implements OnInit {
         this.getAllCustomer();
       })
     })
+  }
+
+  update(form : NgForm){
+    if(form.valid){
+      this.http.post<string>("Customer/Update",this.updateModel,(res) =>{
+        this.swal.callToast(res);
+        this.createModel = new CustomerModel();
+        this.updateModalCloseBtn?.nativeElement.click();
+        this.getAllCustomer();
+      })
+    }
   }
 }
