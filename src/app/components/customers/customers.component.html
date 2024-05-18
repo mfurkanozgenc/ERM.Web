@@ -1,0 +1,114 @@
+<app-blank pageName="Müşeriler" [routers]="['Müşteriler']">
+  <app-section sectionTitle="Müşteri Listesi">
+    <div class="form-group row">
+     <div class="col-9">
+      <button class="btn btn-dark" data-toggle="modal" data-target="#createModal">
+      <i class="far fa fa-plus me-1"></i>
+       Müşteri Ekle
+      </button>
+     </div>
+     <div class="col-3">
+      <input type="search" [(ngModel)]="search" class="form-control" placeholder="Arama...">
+     </div>
+    </div>
+    <div class="form-group mt-2">
+     <table class="table table-hover">
+      <thead>
+        <th>#</th>
+        <th>Müşteri Adı</th>
+        <th>Vergi Dairesi</th>
+        <th>Vergi Numarası</th>
+        <th>Şehir</th>
+        <th>İlçe</th>
+        <th>Açık Adres</th>
+        <th>İşlemler</th>
+      </thead>
+      <tbody>
+        @for(customer of customers | customer : search ;track customer;){
+          <tr>
+            <td>{{$index + 1}}</td>
+            <td>{{customer.name}}</td>
+            <td>{{customer.taxDepartment}}</td>
+            <td>{{customer.taxNumber}}</td>
+            <td>{{customer.city}}</td>
+            <td>{{customer.town}}</td>
+            <td>{{customer.fullAddress}}</td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm">
+                <i class="far fa fa-edit"></i>
+              </button>
+              <button class="btn btn-outline-danger btn-sm" style="margin-left: 5px;" (click)="delete(customer)">
+                <i class="far fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+     </table>
+    </div>
+  </app-section>
+
+</app-blank>
+
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="max-height: 800px;overflow-y: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createModalLabel">Müşteri Ekle</h5>
+        <button type="button" #createModalCloseBtn class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form formValidate autocomplete="off" #createForm="ngForm" (ngSubmit)="create(createForm)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Müşteri Adı</label>
+            <input [(ngModel)]="createModel.name" type="text" required minlength="3" class="form-control" name="name">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group mt-2">
+                <label>Vergi Dairesi</label>
+                <input [(ngModel)]="createModel.taxDepartment" type="text" required minlength="3" class="form-control" name="taxDepartment">
+                <div class="invalid-feedback"></div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group mt-2">
+                <label>Vergi Numarası</label>
+                <input [(ngModel)]="createModel.taxNumber" type="text" required minlength="10" maxlength="11" class="form-control" name="taxNumber">
+                <div class="invalid-feedback"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group mt-2">
+                <label>Şehir</label>
+                <input [(ngModel)]="createModel.city" type="text" required minlength="3" class="form-control" name="city">
+                <div class="invalid-feedback"></div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group mt-2">
+                <label>İlçe</label>
+                <input [(ngModel)]="createModel.town" type="text" required minlength="3" class="form-control" name="town">
+                <div class="invalid-feedback"></div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-2">
+            <label>Açık Adres</label>
+            <textarea [(ngModel)]="createModel.fullAddress" name="fullAddress" class="form-control" rows="5" required minlength="3" maxlength="255"></textarea>
+            <div class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-dark w-100">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

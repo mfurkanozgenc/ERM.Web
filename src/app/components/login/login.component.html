@@ -1,0 +1,41 @@
+<body class="hold-transition login-page">
+  <div class="login-box">
+    <div class="card card-outline card-primary">
+      <div class="card-header text-center">
+        <a href="../../index2.html" class="h1"><b>ÖZGENÇ</b> ERP</a>
+      </div>
+      <div class="card-body">
+        <p class="login-box-msg">Giriş Yapmak İçin Bilgilerinizi Giriniz</p>
+          <div class="input-group mb-3">
+            <input [(ngModel)]="model.emailOrUserName" (keydown.Enter)="signIn()" type="email" class="form-control" placeholder="Kullancı Adı">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input [(ngModel)]="model.password" type="password" (keydown.Enter)="signIn()" class="form-control" placeholder="Şifre">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="icheck-primary">
+                <input type="checkbox" id="remember">
+                <label for="remember" style="margin-left: 10px;">
+                  Beni Hatırla
+                </label>
+              </div>
+            </div>
+            <div class="col-12">
+              <button [disabled]="!model.emailOrUserName || !model.password" type="submit" class="btn btn-primary btn-block" (click)="signIn()">Giriş Yap</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  </body>
