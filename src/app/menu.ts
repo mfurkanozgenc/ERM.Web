@@ -40,6 +40,13 @@ export const Menus : MenuModel[]=[
         subMenus : [],
         isTittle : false
       },
+      {
+        name : 'Reçeteler',
+        icon : 'far fa fa-list',
+        url : '/recipes',
+        subMenus : [],
+        isTittle : false
+      },
     ]
   }
 ]

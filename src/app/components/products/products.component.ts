@@ -55,7 +55,7 @@ export class ProductsComponent {
 
   delete(product : ProductModel){
     this.swal.callSwal('Ürün Silinecek ?',`${product.name} isimli ürün silinecektir.Onaylıyor Musunuz ?`,() =>{
-      this.http.post<string>("Customer/DeleteById",{id : product.id},(res)=>{
+      this.http.post<string>("Product/DeleteById",{id : product.id},(res)=>{
         this.swal.callToast(res);
         this.getAllProduct();
       })
