@@ -26,28 +26,20 @@ export const Menus : MenuModel[]=[
         subMenus : [],
         isTittle : false
       },
+      {
+        name : 'Depolar',
+        icon : 'far fa fa-warehouse',
+        url : '/depots',
+        subMenus : [],
+        isTittle : false
+      },
+      {
+        name : 'Ürünler',
+        icon : 'far fa fa-box',
+        url : '/products',
+        subMenus : [],
+        isTittle : false
+      },
     ]
-  },
-  // {
-  //   name : 'Admin',
-  //   icon : 'fas fa-solid fa-home',
-  //   url : '/',
-  //   subMenus : [],
-  //   isTittle : true
-  // },
-  // {
-  //   name : 'Yönetim',
-  //   icon : 'fas fa-solid fa-user-tie',
-  //   url : '/',
-  //   subMenus : [
-  //     {
-  //       name : 'Kullanıcılar',
-  //       icon : 'fas fa-solid fa-users',
-  //       url : '/',
-  //       subMenus : [],
-  //       isTittle : true
-  //     }
-  //   ],
-  //   isTittle : false
-  // }
+  }
 ]
