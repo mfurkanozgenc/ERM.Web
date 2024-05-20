@@ -8,7 +8,7 @@ import { TagModule } from 'primeng/tag';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
-import { BrowserModule } from '@angular/platform-browser';
+import { MessagesModule } from 'primeng/messages';
 import { FormValidateDirective } from 'form-validate-angular';
 @NgModule({
   declarations: [],
@@ -21,6 +21,7 @@ import { FormValidateDirective } from 'form-validate-angular';
     TagModule,
     IconFieldModule,
     InputIconModule,
+    MessagesModule,
     ButtonModule,
     FormValidateDirective
   ],
@@ -28,6 +29,7 @@ import { FormValidateDirective } from 'form-validate-angular';
     CommonModule,
     BlankComponent,
     SectionComponent,
+    MessagesModule,
     FormsModule,
     TableModule,
     TagModule,

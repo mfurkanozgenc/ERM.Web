@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { NetworkControlService } from './services/network-control.service';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,10 @@ import { RouterOutlet } from '@angular/router';
   template:`<router-outlet></router-outlet>`
 })
 export class AppComponent {
+
+  constructor(
+    private networkStatus : NetworkControlService
+  ){
+      this.networkStatus.networkStatusControl();
+  }
 }
