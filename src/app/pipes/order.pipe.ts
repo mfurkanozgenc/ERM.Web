@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DepotModel } from '../models/depotModel';
+import { OrderModel } from '../models/orderModel';
 
 @Pipe({
-  name: 'depot',
-  standalone: true,
+  name: 'order',
+  standalone: true
 })
-export class DepotPipe implements PipeTransform {
-  
-  transform(value: DepotModel[], search: string): DepotModel[] {
+export class OrderPipe implements PipeTransform {
+
+  transform(value: OrderModel[], search: string): OrderModel[] {
     if (search === '') return value;
     search = search.toLocaleLowerCase();
     return value.filter((depot) =>
@@ -17,4 +17,5 @@ export class DepotPipe implements PipeTransform {
       )
     );
   }
+
 }

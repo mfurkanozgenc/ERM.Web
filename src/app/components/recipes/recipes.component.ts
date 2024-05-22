@@ -48,8 +48,17 @@ export class RecipesComponent {
   addDetail(){
     const prodcut = this.products.find(p => p.id === this.detail.productId);
     if(prodcut){
-      this.detail.product = prodcut;
-      this.createModel.details.push(this.detail);
+      var find = this.createModel.details.find(d => d.productId === this.detail.productId);
+      if(find){
+        let number1 = Number(find.quantity);
+        let number2 = Number(this.detail.quantity);
+        var total = number1 + number2;
+        find.quantity = total;
+      }
+      else{
+        this.detail.product = prodcut;
+        this.createModel.details.push(this.detail);
+      }
       this.detail = new RecipeDetailModel();
     }
   }

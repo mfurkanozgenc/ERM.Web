@@ -46,7 +46,14 @@ export const Menus : MenuModel[]=[
         url : '/recipes',
         subMenus : [],
         isTittle : false
-      },
+      }
     ]
+  },
+  {
+    name : 'Siparişler',
+    icon : 'far fa fa-clipboard-list',
+    url : '/orders',
+    isTittle : false,
+    subMenus : []
   }
 ]

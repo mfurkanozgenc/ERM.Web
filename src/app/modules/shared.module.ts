@@ -10,6 +10,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { FormValidateDirective } from 'form-validate-angular';
+import { TrCurrencyPipe } from 'tr-currency';
 @NgModule({
   declarations: [],
   imports: [
@@ -23,7 +24,8 @@ import { FormValidateDirective } from 'form-validate-angular';
     InputIconModule,
     MessagesModule,
     ButtonModule,
-    FormValidateDirective
+    FormValidateDirective,
+    TrCurrencyPipe
   ],
   exports:[
     CommonModule,
@@ -36,7 +38,8 @@ import { FormValidateDirective } from 'form-validate-angular';
     IconFieldModule,
     InputIconModule,
     ButtonModule,
-    FormValidateDirective
+    FormValidateDirective,
+    TrCurrencyPipe
   ]
 })
 export class SharedModule { }
