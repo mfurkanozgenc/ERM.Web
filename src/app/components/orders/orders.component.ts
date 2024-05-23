@@ -9,11 +9,12 @@ import { CustomerModel } from '../../models/customerModel';
 import { ProductModel } from '../../models/productModel';
 import { OrderDetailModel } from '../../models/orderDetailModel';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [SharedModule, OrderPipe],
+  imports: [SharedModule, OrderPipe,RouterLink],
   templateUrl: './orders.component.html',
   providers : [DatePipe],
   styleUrl: './orders.component.css',
@@ -42,7 +43,7 @@ export class OrdersComponent {
          this.createModel.deliveryDate = this.date.transform(new Date() , 'yyyy-MM-dd') ?? '';
   }
   ngOnInit(): void {
-    this.geAllDepot();
+    this.getAllOrder();
     this.geAllCustomer();
     this.geAllProduct();
   }
@@ -51,7 +52,7 @@ export class OrdersComponent {
     this.updateModel = { ...order };
   }
 
-  geAllDepot() {
+  getAllOrder() {
     this.http.post<OrderModel[]>('Order/GetAll', {}, (res) => {
       this.orders = res;
     });
@@ -100,7 +101,7 @@ export class OrdersComponent {
         this.swal.callToast(res);
         this.createModel = new OrderModel();
         this.createModalCloseBtn?.nativeElement.click();
-        this.geAllDepot();
+        this.getAllOrder();
       });
     }
   }
@@ -113,7 +114,7 @@ export class OrdersComponent {
       () => {
         this.http.post<string>('Order/DeleteById', { id: order.id }, (res) => {
           this.swal.callToast(res);
-          this.geAllDepot();
+          this.getAllOrder();
         });
       }
     );
@@ -125,7 +126,7 @@ export class OrdersComponent {
         this.swal.callToast(res);
         this.createModel = new OrderModel();
         this.updateModalCloseBtn?.nativeElement.click();
-        this.geAllDepot();
+        this.getAllOrder();
       });
     }
   }

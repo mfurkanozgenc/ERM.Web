@@ -33,7 +33,11 @@
             <td>{{order.deliveryDate | date : 'dd.MM.yyyy'}}</td>
 
             <td>
-              <button class="btn btn-outline-primary btn-sm" (click)="openEditModal(order)" data-toggle="modal" data-target="#updateModal">
+              <a class="btn btn-outline-dark btn-sm" style="margin-left: 5px;"  href="requierements-planning/{{order.id}}" target="_blank" (click)="getAllOrder()">
+                <i class="far fa fa-list"></i>
+                İhtiyaç Planlaması Çalıştır
+              </a>
+              <button class="btn btn-outline-primary btn-sm" style="margin-left: 5px;" (click)="openEditModal(order)" data-toggle="modal" data-target="#updateModal">
                 <i class="far fa fa-edit"></i>
               </button>
               <button class="btn btn-outline-danger btn-sm" style="margin-left: 5px;" (click)="delete(order)">

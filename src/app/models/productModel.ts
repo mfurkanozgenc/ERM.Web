@@ -2,6 +2,8 @@ export class ProductModel{
   id : string = '';
   name : string = '';
   typeValue : number = 1;
+  quantity : number = 0;
+  note : string = '';
   type : ProductTypeEnum = new ProductTypeEnum();
 }
 
