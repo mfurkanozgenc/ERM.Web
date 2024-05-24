@@ -112,7 +112,7 @@ export class OrdersComponent {
       'Sipariş Silinecek ?',
       `${number} numaralı sipariş silinecektir.Onaylıyor Musunuz ?`,
       () => {
-        this.http.post<string>('Order/DeleteById', { id: order.id }, (res) => {
+        this.http.post<string>('Order/DeleteById', { orderId: order.id }, (res) => {
           this.swal.callToast(res);
           this.getAllOrder();
         });
@@ -124,7 +124,6 @@ export class OrdersComponent {
     if (form.valid) {
       this.http.post<string>('Order/Update', this.updateModel, (res) => {
         this.swal.callToast(res);
-        this.createModel = new OrderModel();
         this.updateModalCloseBtn?.nativeElement.click();
         this.getAllOrder();
       });
