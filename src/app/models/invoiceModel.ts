@@ -7,6 +7,7 @@ export class InvoiceModel
   invoiceNumber : string = '';
   date : string = '';
   customerId : string = '';
+  orderId? : any;
   customer : CustomerModel = new CustomerModel();
   type : InvoiceTypeEnum = new InvoiceTypeEnum();
   typeValue : number = 1;

@@ -44,7 +44,7 @@
           </div>
           <div class="col-4">
             <label>Adet</label>
-            <input type="number" class="form-control" name="updateQuantity" [(ngModel)]="updateModel.quantity" required="">
+            <input type="number" min="0" max="999999" class="form-control" name="updateQuantity" [(ngModel)]="updateModel.quantity" required="">
             <div class="invalid-feedback"></div>
           </div>
           <div class="col-4">

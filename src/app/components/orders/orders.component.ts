@@ -14,9 +14,9 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [SharedModule, OrderPipe,RouterLink],
+  imports: [SharedModule, OrderPipe, RouterLink],
   templateUrl: './orders.component.html',
-  providers : [DatePipe],
+  providers: [DatePipe],
   styleUrl: './orders.component.css',
 })
 export class OrdersComponent {
@@ -36,11 +36,14 @@ export class OrdersComponent {
   updateModel: OrderModel = new OrderModel();
   search: string = '';
 
-  constructor(private http: HttpService,
-              private swal: SwalService,
-              private date : DatePipe ) {
-         this.createModel.date = this.date.transform(new Date() , 'yyyy-MM-dd') ?? '';
-         this.createModel.deliveryDate = this.date.transform(new Date() , 'yyyy-MM-dd') ?? '';
+  constructor(
+    private http: HttpService,
+    private swal: SwalService,
+    private date: DatePipe
+  ) {
+    this.createModel.date = this.date.transform(new Date(), 'yyyy-MM-dd') ?? '';
+    this.createModel.deliveryDate =
+      this.date.transform(new Date(), 'yyyy-MM-dd') ?? '';
   }
   ngOnInit(): void {
     this.getAllOrder();
@@ -68,25 +71,47 @@ export class OrdersComponent {
     });
   }
   addDetail() {
-    const product = this.products.find((p) => p.id === this.createDetail.productId);
+    if(!this.createDetail.productId) { return;}
+    var exsistControl = this.createModel.orderDetails.findIndex(
+      (p) => p.productId === this.createDetail.productId
+    );
+    const product = this.products.find(
+      (p) => p.id === this.createDetail.productId
+    );
     if (product) {
       this.createDetail.product = product;
     }
-    this.createModel.orderDetails.push(this.createDetail);
+    if (exsistControl === -1) {
+      this.createModel.orderDetails.push(this.createDetail);
+    } else {
+      this.createModel.orderDetails[exsistControl] = this.createDetail;
+    }
     this.createDetail = new OrderDetailModel();
-    this.createModel.date = this.date.transform(new Date() , 'yyyy-MM-dd') ?? '';
-    this.createModel.deliveryDate = this.date.transform(new Date() , 'yyyy-MM-dd') ?? '';
+    this.createModel.date = this.date.transform(new Date(), 'yyyy-MM-dd') ?? '';
+    this.createModel.deliveryDate =
+      this.date.transform(new Date(), 'yyyy-MM-dd') ?? '';
   }
 
   addUpdateDetail() {
-    const product = this.products.find((p) => p.id === this.updateDetail.productId);
+    if(!this.updateDetail.productId) { return;}
+    var exsistControl = this.updateModel.orderDetails.findIndex(
+      (p) => p.productId === this.updateDetail.productId
+    );
+    const product = this.products.find(
+      (p) => p.id === this.updateDetail.productId
+    );
     if (product) {
       this.updateDetail.product = product;
     }
-    this.updateModel.orderDetails.push(this.updateDetail);
+    if (exsistControl === -1) {
+      this.updateModel.orderDetails.push(this.updateDetail);
+    } else {
+      this.updateModel.orderDetails[exsistControl] = this.updateDetail;
+    }
     this.updateDetail = new OrderDetailModel();
-    this.updateModel.date = this.date.transform(new Date() , 'yyyy-MM-dd') ?? '';
-    this.updateModel.deliveryDate = this.date.transform(new Date() , 'yyyy-MM-dd') ?? '';
+    this.updateModel.date = this.date.transform(new Date(), 'yyyy-MM-dd') ?? '';
+    this.updateModel.deliveryDate =
+      this.date.transform(new Date(), 'yyyy-MM-dd') ?? '';
   }
   removeDetail(index: number) {
     this.createModel.orderDetails.splice(index, 1);
@@ -112,10 +137,14 @@ export class OrdersComponent {
       'Sipariş Silinecek ?',
       `${number} numaralı sipariş silinecektir.Onaylıyor Musunuz ?`,
       () => {
-        this.http.post<string>('Order/DeleteById', { orderId: order.id }, (res) => {
-          this.swal.callToast(res);
-          this.getAllOrder();
-        });
+        this.http.post<string>(
+          'Order/DeleteById',
+          { orderId: order.id },
+          (res) => {
+            this.swal.callToast(res);
+            this.getAllOrder();
+          }
+        );
       }
     );
   }
@@ -127,6 +156,16 @@ export class OrdersComponent {
         this.updateModalCloseBtn?.nativeElement.click();
         this.getAllOrder();
       });
+    }
+  }
+  getStatusClass(status: number) {
+    switch (status) {
+      case 1:
+        return 'text-danger';
+      case 2:
+        return 'text-primary';
+      default:
+        return 'text-success';
     }
   }
 }

@@ -17,6 +17,7 @@
         <th>#</th>
         <th>Ürün Adı</th>
         <th>Ürün Tipi</th>
+        <th>Stok Adeti</th>
         <th>İşlemler</th>
       </thead>
       <tbody>
@@ -25,6 +26,7 @@
             <td>{{$index + 1}}</td>
             <td>{{product.name}}</td>
             <td>{{product.type.name}}</td>
+            <td>{{product.stock}}<td>
             <td>
               <button class="btn btn-outline-primary btn-sm" (click)="openEditModal(product)" data-toggle="modal" data-target="#updateModal">
                 <i class="far fa fa-edit"></i>
@@ -56,7 +58,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Ürün Adı</label>
-            <input [(ngModel)]="createModel.name" type="text" required minlength="3" class="form-control" name="name">
+            <input [(ngModel)]="createModel.name" type="text" required minlength="3" maxlength="20" class="form-control" name="name">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group mt-2">
@@ -91,7 +93,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Ürün Adı</label>
-            <input [(ngModel)]="updateModel.name" type="text" required minlength="3" class="form-control" name="updateName">
+            <input [(ngModel)]="updateModel.name" type="text" required minlength="3" maxlength="20" class="form-control" name="updateName">
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group mt-2">

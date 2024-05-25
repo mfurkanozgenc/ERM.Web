@@ -12,6 +12,7 @@ import { SharedModule } from '../../modules/shared.module';
 import { InvoicePipe } from '../../pipes/invoice.pipe';
 import { DepotModel } from '../../models/depotModel';
 import { ActivatedRoute } from '@angular/router';
+import { OrderModel } from '../../models/orderModel';
 
 @Component({
   selector: 'app-invoices',
@@ -33,6 +34,8 @@ export class InvoicesComponent {
   customers: CustomerModel[] = [];
   products: ProductModel[] = [];
   depots : DepotModel[] = [];
+  orders : OrderModel[] = [];
+  tempOrders : OrderModel[] = [];
   createDetail: InvoiceDetailModel = new InvoiceDetailModel();
   updateDetail: InvoiceDetailModel = new InvoiceDetailModel();
   createModel: InvoiceModel = new InvoiceModel();
@@ -55,12 +58,15 @@ export class InvoicesComponent {
         this.geAllCustomer();
         this.geAllProduct();
         this.geAllDepot();
-         this.createModel.date = this.date.transform(new Date() , 'yyyy-MM-dd') ?? '';
+        this.getAllOrder();
+        this.createModel.date = this.date.transform(new Date() , 'yyyy-MM-dd') ?? '';
   }
   ngOnInit(): void {
   }
 
   openEditModal(order: InvoiceModel) {
+
+    console.log("ORDER",order);
     this.updateModel = { ...order };
   }
 
@@ -79,12 +85,27 @@ export class InvoicesComponent {
       this.depots = res;
     });
   }
+  getAllOrder() {
+    this.http.post<OrderModel[]>('Order/GetAll', {type : this.type}, (res) => {
+      this.orders = res.filter(o => o.status.value != 3);
+      this.tempOrders = res.filter(o => o.status.value != 3);
+    });
+  }
   geAllProduct() {
     this.http.post<ProductModel[]>('Product/GetAll', {}, (res) => {
       this.products = res;
     });
   }
+  selectCustomer(customer : any){
+    if(customer.target.value){
+      this.tempOrders = structuredClone(this.orders.filter(p => p.customerId === customer.target.value));
+    }
+    else{
+      this.tempOrders = this.orders;
+    }
+  }
   addDetail() {
+    if(!this.createDetail.productId  || !this.createDetail.depotId){ return;}
     const product = this.products.find((p) => p.id === this.createDetail.productId);
     if (product) {
       this.createDetail.product = product;
@@ -99,6 +120,7 @@ export class InvoicesComponent {
   }
 
   addUpdateDetail() {
+    if(!this.updateDetail.productId || !this.updateDetail.depotId){ return;}
     const product = this.products.find((p) => p.id === this.updateDetail.productId);
     if (product) {
       this.updateDetail.product = product;

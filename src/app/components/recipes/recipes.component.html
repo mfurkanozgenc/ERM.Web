@@ -77,7 +77,7 @@
             <div class="col-3">
               <div class="form-group">
                 <label>Adet</label>
-                <input class="form-control" [(ngModel)]="detail.quantity" [ngModelOptions]="{standalone : true}">
+                <input class="form-control" [(ngModel)]="detail.quantity" type="number" min="0" max="999999" [ngModelOptions]="{standalone : true}">
               </div>
             </div>
             <div class="col-3">

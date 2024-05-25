@@ -57,6 +57,13 @@ export const Menus : MenuModel[]=[
     subMenus : []
   },
   {
+    name : 'Üretim',
+    icon : 'far fa fa-cart-plus',
+    url : '/productions',
+    isTittle : false,
+    subMenus : []
+  },
+  {
     name : 'Faturalar',
     icon : 'far fa fa-file-invoice',
     url : '/',
