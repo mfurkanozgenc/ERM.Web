@@ -68,7 +68,7 @@ export class DepotsComponent {
     if(form.valid){
       this.http.post<string>("Depot/Update",this.updateModel,(res) =>{
         this.swal.callToast(res);
-        this.createModel = new DepotModel();
+        this.updateModel = new DepotModel();
         this.updateModalCloseBtn?.nativeElement.click();
         this.geAllDepot();
       })

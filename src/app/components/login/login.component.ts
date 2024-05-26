@@ -14,18 +14,30 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   model : Loginmodel = new Loginmodel();
-
+  isRemember : boolean = false;
   constructor(
     private http : HttpService,
     private router : Router
   ){
-
+     if(localStorage.getItem("rememberInfo")){
+      this.model = JSON.parse(localStorage.getItem("rememberInfo") ?? "") ?? "";
+      this.isRemember = true;
+     }
   }
   signIn(){
     if(!this.model.emailOrUserName || !this.model.password) {return;}
      this.http.post<LoginResponseModel>("Auth/Login",this.model,(res)=>{
       localStorage.setItem('token',res.token);
+      if(this.isRemember){
+        localStorage.setItem("rememberInfo",JSON.stringify(this.model));
+      }
+      else{
+        localStorage.removeItem("rememberInfo");
+      }
       this.router.navigateByUrl('/');
      })
+  }
+  remember(){
+    this.isRemember = !this.isRemember;
   }
 }

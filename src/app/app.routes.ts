@@ -13,6 +13,7 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { RequirementsPlanningComponent } from './components/requirements-planning/requirements-planning.component';
 import { InvoicesComponent } from './components/invoices/invoices.component';
 import { ProductionsComponent } from './components/productions/productions.component';
+import { UsersComponent } from './components/users/users.component';
 
 export const routes: Routes = [
   {
@@ -22,7 +23,7 @@ export const routes: Routes = [
   {
     path : '',
     component : LayoutsComponent,
-    canActivateChild : [()=> inject(AuthService).isAuthenticated()],
+    canActivateChild : [()=> inject(AuthService).isAuthenticated() && inject(AuthService).roleControl()],
     children : [
       {
         path : '',
@@ -59,6 +60,10 @@ export const routes: Routes = [
       {
         path : 'productions',
         component : ProductionsComponent
+      },
+      {
+        path : 'users',
+        component : UsersComponent
       }
     ]
   },

@@ -21,7 +21,7 @@
         <th>İşlemler</th>
       </thead>
       <tbody>
-        @for(invoice of invoices | invoice : search ;track invoice;){
+        @for(invoice of db.invoices | invoice : search ;track invoice;){
           <tr>
             <td>{{$index + 1}}</td>
             <td>{{invoice.date | date : 'dd.MM.yyyy'}}</td>

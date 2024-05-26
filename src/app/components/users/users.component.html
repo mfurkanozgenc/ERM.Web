@@ -1,0 +1,156 @@
+<app-blank pageName="Kullanıcılar" [routers]="['Kullanıcılar']">
+  <app-section sectionTitle="Kullanıcı Listesi">
+    <div class="form-group row">
+     <div class="col-9">
+      <button class="btn btn-dark" data-toggle="modal" data-target="#createModal">
+      <i class="far fa fa-plus me-1"></i>
+       Kullanıcı Ekle
+      </button>
+     </div>
+     <div class="col-3">
+      <input type="search" [(ngModel)]="search" class="form-control" placeholder="Arama...">
+     </div>
+    </div>
+    <div class="form-group mt-2">
+     <table class="table table-hover">
+      <thead>
+        <th>#</th>
+        <th>Yetki</th>
+        <th>İsim</th>
+        <th>Soyisim</th>
+        <th>Kullanıcı Adı</th>
+        <th>Mail</th>
+        <th>İşlemler</th>
+      </thead>
+      <tbody>
+        @for(user of users | user : search;track user;){
+          <tr>
+            <td>{{$index + 1}}</td>
+            <td>{{user.userRole.name}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.userName}}</td>
+            <td>{{user.email}}</td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm" (click)="openEditModal(user)" data-toggle="modal" data-target="#updateModal">
+                <i class="far fa fa-edit"></i>
+              </button>
+              @if(user.userRole.value !== 1){
+                <button class="btn btn-outline-danger btn-sm" style="margin-left: 5px;" (click)="delete(user)">
+                  <i class="far fa fa-trash"></i>
+                </button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+     </table>
+    </div>
+  </app-section>
+
+</app-blank>
+
+<!--Create Modal-->
+<div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="max-height: 800px;overflow-y: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createModalLabel">Kullanıcı Ekle</h5>
+        <button type="button" #createModalCloseBtn class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form formValidate autocomplete="off" #createForm="ngForm" (ngSubmit)="create(createForm)">
+        <div class="modal-body">
+          <div class="form-group mt-2">
+            <label>Yetki</label>
+            <select class="form-control" name="role" [(ngModel)]="createModel.roleValueNumber" required >
+              @for(role of roles;track role){
+                 <option [value]="role.value" >{{role.name}}</option>
+              }
+            </select>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label>İsim</label>
+            <input [(ngModel)]="createModel.firstName" type="text" required minlength="3" maxlength="20" class="form-control" name="firstName">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label>Soyisim</label>
+            <input [(ngModel)]="createModel.lastName" type="text" required minlength="3" maxlength="20" class="form-control" name="lastName">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label>Kullanıcı Adı</label>
+            <input [(ngModel)]="createModel.userName" type="text" required minlength="3" maxlength="20" class="form-control" name="userName">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label>Mail</label>
+            <input [(ngModel)]="createModel.email" type="email" required minlength="3" maxlength="40" class="form-control" name="email">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label>Şifre</label>
+            <input [(ngModel)]="createModel.password" type="text" required minlength="3" maxlength="20" class="form-control" name="password">
+            <div class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-dark w-100">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--Update Modal-->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="max-height: 800px;overflow-y: auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">Kullanıcı Düzenle</h5>
+        <button type="button" #updateModalCloseBtn class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form formValidate autocomplete="off" #updateForm="ngForm" (ngSubmit)="update()">
+        <div class="modal-body">
+          <div class="form-group mt-2">
+            <label>Yetki</label>
+            <select class="form-control" name="updaeRole" [(ngModel)]="updateModel.roleValueNumber" required >
+              @for(role of roles;track role){
+                 <option [value]="role.value" >{{role.name}}</option>
+              }
+            </select>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label>İsim</label>
+            <input [(ngModel)]="updateModel.firstName" type="text" required minlength="3" maxlength="20" class="form-control" name="updateFirstName">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label>Soyisim</label>
+            <input [(ngModel)]="updateModel.lastName" type="text" required minlength="3" maxlength="20" class="form-control" name="updateLastName">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label>Kullanıcı Adı</label>
+            <input [(ngModel)]="updateModel.userName" type="text" required minlength="3" maxlength="20" class="form-control" name="updateUserName">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="form-group">
+            <label>Mail</label>
+            <input [(ngModel)]="updateModel.email" type="email" required minlength="3" maxlength="40" class="form-control" name="updateEmail">
+            <div class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-dark w-100">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

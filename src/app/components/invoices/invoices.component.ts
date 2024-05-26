@@ -13,6 +13,7 @@ import { InvoicePipe } from '../../pipes/invoice.pipe';
 import { DepotModel } from '../../models/depotModel';
 import { ActivatedRoute } from '@angular/router';
 import { OrderModel } from '../../models/orderModel';
+import { DbService } from '../../services/db.service';
 
 @Component({
   selector: 'app-invoices',
@@ -29,8 +30,6 @@ export class InvoicesComponent {
   @ViewChild('updateModalCloseBtn') updateModalCloseBtn:
     | ElementRef<HTMLButtonElement>
     | undefined;
-
-  invoices: InvoiceModel[] = [];
   customers: CustomerModel[] = [];
   products: ProductModel[] = [];
   depots : DepotModel[] = [];
@@ -46,6 +45,7 @@ export class InvoicesComponent {
   constructor(private http: HttpService,
               private swal: SwalService,
               private date : DatePipe,
+              public db :DbService,
               private acivated : ActivatedRoute ) {
 
         this.acivated.params.subscribe(res =>{
@@ -54,7 +54,9 @@ export class InvoicesComponent {
         })
 
         this.createModel.typeValue = this.type;
-        this.getAllInvoice();
+        if(this.db.invoices.length === 0){
+          this.getAllInvoice();
+        }
         this.geAllCustomer();
         this.geAllProduct();
         this.geAllDepot();
@@ -65,14 +67,13 @@ export class InvoicesComponent {
   }
 
   openEditModal(order: InvoiceModel) {
-
-    console.log("ORDER",order);
     this.updateModel = { ...order };
   }
 
+
   getAllInvoice() {
     this.http.post<InvoiceModel[]>('Invoice/GetAll', {type : this.type}, (res) => {
-      this.invoices = res;
+      this.db.invoices = res;
     });
   }
   geAllCustomer() {
