@@ -118,4 +118,13 @@ export const Menus : MenuModel[]=[
     isInvoiceType : 0,
     isRoleValue : 1
   },
+  {
+    name : 'Profilim',
+    icon : 'far fa fa-user',
+    url : '/profile',
+    isTittle : false,
+    subMenus : [],
+    isInvoiceType : 0,
+    isRoleValue : 99
+  },
 ]

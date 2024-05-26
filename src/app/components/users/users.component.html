@@ -20,7 +20,7 @@
         <th>Soyisim</th>
         <th>Kullanıcı Adı</th>
         <th>Mail</th>
-        <th>İşlemler</th>
+        <th></th>
       </thead>
       <tbody>
         @for(user of users | user : search;track user;){
@@ -31,16 +31,21 @@
             <td>{{user.lastName}}</td>
             <td>{{user.userName}}</td>
             <td>{{user.email}}</td>
-            <td>
-              <button class="btn btn-outline-primary btn-sm" (click)="openEditModal(user)" data-toggle="modal" data-target="#updateModal">
-                <i class="far fa fa-edit"></i>
-              </button>
-              @if(user.userRole.value !== 1){
-                <button class="btn btn-outline-danger btn-sm" style="margin-left: 5px;" (click)="delete(user)">
-                  <i class="far fa fa-trash"></i>
+            @if(auth.user.userName !== user.userName){
+              <td>
+                <button class="btn btn-outline-primary btn-sm" (click)="openEditModal(user)" data-toggle="modal" data-target="#updateModal">
+                  <i class="far fa fa-edit"></i>
                 </button>
-              }
-            </td>
+                @if(user.userRole.value !== 1){
+                  <button class="btn btn-outline-danger btn-sm" style="margin-left: 5px;" (click)="delete(user)">
+                    <i class="far fa fa-trash"></i>
+                  </button>
+                }
+              </td>
+            }
+            @else {
+              <td></td>
+            }
           </tr>
         }
       </tbody>

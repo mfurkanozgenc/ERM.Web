@@ -31,19 +31,23 @@
             <td>{{order.customer.name}}</td>
             <td [ngClass]="getStatusClass(order.status.value)">{{order.status.name}}</td>
             <td>{{order.deliveryDate | date : 'dd.MM.yyyy'}}</td>
-
-            <td>
-              <a *ngIf="order.status.value === 1" class="btn btn-outline-dark btn-sm" style="margin-left: 5px;"  href="requierements-planning/{{order.id}}" target="_blank" (click)="getAllOrder()">
-                <i class="far fa fa-list"></i>
-                İhtiyaç Planlaması
-              </a>
-              <button class="btn btn-outline-primary btn-sm" style="margin-left: 5px;" (click)="openEditModal(order)" data-toggle="modal" data-target="#updateModal">
-                <i class="far fa fa-edit"></i>
-              </button>
-              <button class="btn btn-outline-danger btn-sm" style="margin-left: 5px;" (click)="delete(order)">
-                <i class="far fa fa-trash"></i>
-              </button>
-            </td>
+            @if(order.status.value !== 3){
+              <td>
+                <a *ngIf="order.status.value === 1" class="btn btn-outline-dark btn-sm" style="margin-left: 5px;"  href="requierements-planning/{{order.id}}" target="_blank" (click)="getAllOrder()">
+                  <i class="far fa fa-list"></i>
+                  İhtiyaç Planlaması
+                </a>
+                <button class="btn btn-outline-primary btn-sm" style="margin-left: 5px;" (click)="openEditModal(order)" data-toggle="modal" data-target="#updateModal">
+                  <i class="far fa fa-edit"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm" style="margin-left: 5px;" (click)="delete(order)">
+                  <i class="far fa fa-trash"></i>
+                </button>
+              </td>
+            }
+             @else {
+              <td></td>
+             }
           </tr>
         }
       </tbody>
@@ -176,7 +180,7 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Tarih</label>
-            <input [(ngModel)]="updateModel.date" type="date"  class="form-control" name="updateDate" required="">
+            <input [(ngModel)]="updateModel.date" type="date"  class="form-control" name="updateDate" required>
             <div class="invalid-feedback"></div>
           </div>
           <div class="form-group mt-2">

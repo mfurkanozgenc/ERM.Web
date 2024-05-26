@@ -4,7 +4,7 @@ import { DbService } from '../../../services/db.service';
 import { SharedModule } from '../../../modules/shared.module';
 import { AuthService } from '../../../services/auth.service';
 import { UserModel } from '../../../models/userModel';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -26,5 +26,8 @@ export class NavbarComponent {
     localStorage.removeItem("token");
     this.auth.user = new UserModel();
     this.router.navigateByUrl('login');
+  }
+  openProfilePage(){
+    this.router.navigateByUrl("profile");
   }
 }

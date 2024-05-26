@@ -14,6 +14,7 @@ import { RequirementsPlanningComponent } from './components/requirements-plannin
 import { InvoicesComponent } from './components/invoices/invoices.component';
 import { ProductionsComponent } from './components/productions/productions.component';
 import { UsersComponent } from './components/users/users.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -64,6 +65,10 @@ export const routes: Routes = [
       {
         path : 'users',
         component : UsersComponent
+      },
+      {
+        path : 'profile',
+        component : ProfileComponent
       }
     ]
   },
