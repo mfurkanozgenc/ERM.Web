@@ -21,7 +21,8 @@ export class ErrorService {
       this.swal.callToast(errorMessage,'error');
     }
     else if(error.status === 500){
-      this.swal.callToast(error.error.errorMessages[0],'error')
+      if(error?.error?.errorMessages?.length>0)
+       this.swal.callToast(error?.error?.errorMessages[0],'error')
     }
   }
 }
