@@ -39,7 +39,6 @@ export class AuthService {
 
   roleControl(){ // Url kısmından yekisiz bir alana gidilmek istenirse direkt logine atılacak
     var pathName = window.location.pathname;
-    console.log("PATHNAME",pathName);
     if(pathName == '/login') { return true;}
     if(pathName == '/') { return true;}
     var findMenu = this.menus.find(m => m.url ==  pathName && m?.subMenus?.length === 0);
@@ -61,7 +60,6 @@ export class AuthService {
       });
       var findSubMenu = allSubMenus.find(m => m.url ==  pathName);
       if(findSubMenu){
-        console.log("BULUNAN",findSubMenu);
         if(findSubMenu.isRoleValue == 99 || findSubMenu.isRoleValue == this.user.roleValueNumber){
           return true;
         }
